@@ -7,19 +7,29 @@
 	<!--<script type="text/javascript" src="dataImport.js"></script>-->
 	<script type="text/javascript" src="jsapi.js"></script>
 	<script type="text/javascript" src="fileReader_forBasis.js"></script>
+	<script 
+		type="text/javascript"
+      	src="https://www.google.com/jsapi?autoload={
+    			'modules':[{
+	      			'name':'visualization',
+	      			'version':'1',
+	      			'packages':['corechart']
+        		}]
+			}"
+	></script>
 
-  <div id="chart_div"><div>
+
+
 </head>
 <body>
-	<div id="output">
-	</div>
-	<div id="chart_div"><div>
-
 	<article>
         <label for="files">Select a file: </label>
         <input id="files" type="file" />
         <output id="result" />
 	</article>
+	<div id="output"></div> 
+	<div id="curve_chart" style="width: 900px; height: 500px"></div>
+	
 		
 </body>
 </html>

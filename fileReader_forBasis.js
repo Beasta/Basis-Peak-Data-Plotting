@@ -23,13 +23,15 @@ window.onload = function() {
         // });
 
         var onSuccess=function(){ //
-            for (var j = 2; j < biometrics.header.length; j++) {
-                biometrics.average[biometrics.header[j]] = average(biometrics.header[j]);
-            }
-            for( var key in biometrics.average){
-                writeToDiv(key);
-                writeToDiv(biometrics.average[key]);
-            }
+            drawingAGoogleChart(parseForGoogle(document.biometrics));
+            
+            // for (var j = 2; j < biometrics.header.length; j++) {
+            //     biometrics.average[biometrics.header[j]] = average(biometrics.header[j]);
+            // }
+            // for( var key in biometrics.average){
+            //     writeToDiv(key);
+            //     writeToDiv(biometrics.average[key]);
+            // }
         };
 
         function average(key){                  /*helper function to compute average values*/
@@ -54,6 +56,30 @@ window.onload = function() {
     //         var output = document.getElementById('output');
     //         //document.body.insertBefore(div, output);
     // }
+    function parseForGoogle(inputObject){
+        var outputArray=[];
+
+        
+
+        outputArray=inputObject.data
+            .map(function(minuteDataPoint){
+                return [minuteDataPoint.date,
+                        minuteDataPoint.calories,
+                        minuteDataPoint.gsr,
+                        minuteDataPoint["heart-rate"],
+                        minuteDataPoint["skin-temp"],
+                        minuteDataPoint.steps];
+            });
+
+        outputArray.unshift(inputObject.header);
+        // outputArray=inputObject.header // map header data to the top of the output Array
+        //     .map(function(headerDataString){
+        //         return headerDataString;
+        //     });
+
+        return outputArray;
+    }
+
 
 
     function parseBiometricCSV(stream){ //parse the datafile into an array.
@@ -81,6 +107,7 @@ window.onload = function() {
                 });
     }
 
+    //setup file loader
     //Check File API support
     if (window.File && window.FileList && window.FileReader) {
         var filesInput = document.getElementById("files");
@@ -118,4 +145,19 @@ window.onload = function() {
     else {
         console.log("Your browser does not support File API");
     }
+        
+    function drawChart(inputArrayStructuredForGoogle) {
+        var data = google.visualization.arrayToDataTable(inputArrayStructuredForGoogle);
+        var options = {
+          title: 'Fuzzy Nuts',
+          curveType: 'function',
+          legend: { position: 'bottom' }
+        };
+        var chart = new google.visualization.LineChart(document.getElementById('curve_chart'));
+        chart.draw(data, options);
+        
+    }
+
+      
+    
 };
