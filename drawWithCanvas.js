@@ -12,7 +12,6 @@ var chartAct = function(event){
 
 		for (var i = 0; i < document.biometrics.data.length; i++) {
 			if(document.biometrics.data[i]['skin-temp']){
-				context.clear
 				context.strokeStyle = 'black';
 				context.lineWidth = 1;
 				context.strokeRect((document.biometrics.data[i].date-startTime)/(endTime-startTime) * chartCanvas.width,
