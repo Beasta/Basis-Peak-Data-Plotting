@@ -1,14 +1,35 @@
 
 window.onload = function() {
+
     var biometrics = {};
     document.biometrics = biometrics;
     document.biometrics.data = [];
     biometrics.average = {};
 
+    //function importBiometrics(){
+
+        
+        // $.ajax({                             /*jQuery ajax request*/
+        //  url:'Data-Files/bodymetrics_bigfile.txt',
+        //  beforeSend:function(){console.log('Loading Data File...');},
+        //  dataFilter:function(stream){parseBiometricCSV(stream);},    function to parse data stream from text file
+        //  error:function(){console.log('Error importing data');},
+        //  success:function(){             /*success callback*/
+        //      console.log('Success!');
+        //      onSuccess();
+        //      }
+        // });
 
         var onSuccess=function(){ //
             drawChart(parseForGoogle(document.biometrics));
-            // chartAct();
+            
+            // for (var j = 2; j < biometrics.header.length; j++) {
+            //     biometrics.average[biometrics.header[j]] = average(biometrics.header[j]);
+            // }
+            // for( var key in biometrics.average){
+            //     writeToDiv(key);
+            //     writeToDiv(biometrics.average[key]);
+            // }
         };
 
         function average(key){                  /*helper function to compute average values*/
@@ -21,7 +42,18 @@ window.onload = function() {
             },0);
             return sum/count;
         }
+    //}
 
+   
+
+    // function writeToDiv(string){                    /*write first thousand data points to a new <div> above the 'output' <div> */
+    //     var div, dataLine;
+    //         div = document.createElement("div");
+    //         dataLine = document.createTextNode(string);
+    //         div.appendChild(dataLine);
+    //         var output = document.getElementById('output');
+    //         //document.body.insertBefore(div, output);
+    // }
     function parseForGoogle(inputObject){
         var outputArray=[];
 
@@ -121,8 +153,7 @@ window.onload = function() {
         };
         var chart = new google.visualization.LineChart(document.getElementById('curve_chart'));
         chart.draw(data, options);
-        //this is a comment for testing branching in git
-        //anther testing of branch
+        
     }
 
       
