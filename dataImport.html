@@ -1,13 +1,15 @@
-<!DOCTYPE html>
+<!DOCTYPE html lang="en">
+<meta charset="UTF-8">
 <html>
 <head>
 	<title>
 	</title>
-	<script src="jquery-1.11.2.js"></script>
-	<!--<script type="text/javascript" src="dataImport.js"></script>-->
-	<script type="text/javascript" src="jsapi.js"></script>
-	<script type="text/javascript" src="fileReader_forBasis.js"></script>
-	<script 
+	<link href="dataImport.css" type="text/css" rel="stylesheet"></style>
+		<script src="jquery-1.11.2.js"></script>
+		<script type="text/javascript" src="jsapi.js"></script>
+		<script type="text/javascript" src="fileReader_forBasis.js"></script>
+		<script src="drawWithCanvas.js"></script>
+		<script 
 		type="text/javascript"
       	src="https://www.google.com/jsapi?autoload={
     			'modules':[{
@@ -28,8 +30,28 @@
         <output id="result" />
 	</article>
 	<div id="output"></div> 
-	<div id="curve_chart" style="width: 900px; height: 500px"></div>
-	
-		
+	<article>
+		<div id="curve_chart" style></div>
+	</article>
+
+	<article>
+	<div id="canvasChart"></div>
+		<canvas id="canvas" >Your browswer does not support HTML5 Canvas.</canvas>
+		<div>
+			<div class="hPlotCtrl">
+				<a id="panLeft" onclick='chartAct(event)'>        &nbsp;&nbsp;&nbsp;<< &nbsp;&nbsp;&nbsp;</a>
+				<a id="hZoomOut" onclick='chartAct(event)'> &nbsp;&nbsp;&nbsp;- &nbsp;&nbsp;&nbsp;</a>
+				<a id="hZoomIn" onclick='chartAct(event)'> &nbsp;&nbsp;&nbsp;+ &nbsp;&nbsp;&nbsp;</a>
+				<a id="panRight" onclick='chartAct(event)'>&nbsp;&nbsp;&nbsp; >> &nbsp;&nbsp;&nbsp;</a>
+				<a id="draw" onclick="chartAct(event)"> &nbsp;&nbsp;&nbsp;Display! &nbsp;&nbsp;&nbsp;</a>
+			</div>
+			<div class="vPlotCtrl">
+				<a id="panUp" onclick='chartAct(event)'> &nbsp;&nbsp;&nbsp;<< &nbsp;&nbsp;&nbsp;</a>
+				<a id="vZoomOut" onclick='chartAct(event)'> &nbsp;&nbsp;&nbsp;- &nbsp;&nbsp;&nbsp;</a>
+				<a id="vZoomIn" onclick='chartAct(event)'> &nbsp;&nbsp;&nbsp;+ &nbsp;&nbsp;&nbsp;</a>
+				<a id="panDown" onclick='chartAct(event)'>&nbsp;&nbsp;&nbsp; >> &nbsp;&nbsp;&nbsp;</a>
+			</div>
+		</div>
+	</article>
 </body>
 </html>
