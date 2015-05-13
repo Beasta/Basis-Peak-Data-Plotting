@@ -1,57 +1,44 @@
 <!DOCTYPE html lang="en">
 <meta charset="UTF-8">
 <html>
-<head>
-	<title>
-	</title>
-	<link href="dataImport.css" type="text/css" rel="stylesheet"></style>
-		<script src="jquery-1.11.2.js"></script>
-		<script type="text/javascript" src="jsapi.js"></script>
+
+	<head>
+		<title>Basis Peaks Your Interest</title>
+		
+		<link href="dataImport.css" type="text/css" rel="stylesheet"></style>
+		
+		<script src="jquery-1.11.2.js"></script>		
 		<script type="text/javascript" src="fileReader_forBasis.js"></script>
 		<script src="drawWithCanvas.js"></script>
-		<script 
-		type="text/javascript"
-      	src="https://www.google.com/jsapi?autoload={
-    			'modules':[{
-	      			'name':'visualization',
-	      			'version':'1',
-	      			'packages':['corechart']
-        		}]
-			}"
-	></script>
+	
+	</head>
 
+	<body>
 
+		<article>
+	        <label for="files">Select a file: </label>
+	        <input id="files" type="file" />
+	        <output id="result" />
+		</article>
 
-</head>
-<body>
-	<article>
-        <label for="files">Select a file: </label>
-        <input id="files" type="file" />
-        <output id="result" />
-	</article>
-	<div id="output"></div> 
-	<article>
-		<div id="curve_chart" style></div>
-	</article>
-
-	<article>
-	<div id="canvasChart"></div>
-		<canvas id="canvas" >Your browswer does not support HTML5 Canvas.</canvas>
-		<div>
-			<div class="hPlotCtrl">
-				<a id="panLeft" onclick='chartAct(event)'>&nbsp;&nbsp;&nbsp;<< &nbsp;&nbsp;&nbsp;</a>
-				<a id="xZoomOut" onclick='chartAct(event)'> &nbsp;&nbsp;&nbsp;- &nbsp;&nbsp;&nbsp;</a>
-				<a id="xZoomIn" onclick='chartAct(event)'> &nbsp;&nbsp;&nbsp;+ &nbsp;&nbsp;&nbsp;</a>
-				<a id="panRight" onclick='chartAct(event)'>&nbsp;&nbsp;&nbsp; >> &nbsp;&nbsp;&nbsp;</a>
-				<a id="draw" onclick="chartAct(event)"> &nbsp;&nbsp;&nbsp;Display! &nbsp;&nbsp;&nbsp;</a>
+		<article>
+			<div id="canvasChart"></div>
+			<canvas id="canvas" >Your browswer does not support HTML5 Canvas.</canvas>
+			<div>
+				<div class="hPlotCtrl">
+					<a id="panLeft" onclick='chartAct(event)'>&nbsp;&nbsp;&nbsp;<< &nbsp;&nbsp;&nbsp;</a>
+					<a id="xZoomOut" onclick='chartAct(event)'> &nbsp;&nbsp;&nbsp;- &nbsp;&nbsp;&nbsp;</a>
+					<a id="xZoomIn" onclick='chartAct(event)'> &nbsp;&nbsp;&nbsp;+ &nbsp;&nbsp;&nbsp;</a>
+					<a id="panRight" onclick='chartAct(event)'>&nbsp;&nbsp;&nbsp; >> &nbsp;&nbsp;&nbsp;</a>
+					<a id="draw" onclick="chartAct(event)"> &nbsp;&nbsp;&nbsp;Display! &nbsp;&nbsp;&nbsp;</a>
+				</div>
+				<div class="vPlotCtrl">
+					<a id="panUp" onclick='chartAct(event)'> &nbsp;&nbsp;&nbsp;<< &nbsp;&nbsp;&nbsp;</a>
+					<a id="yZoomOut" onclick='chartAct(event)'> &nbsp;&nbsp;&nbsp;- &nbsp;&nbsp;&nbsp;</a>
+					<a id="yZoomIn" onclick='chartAct(event)'> &nbsp;&nbsp;&nbsp;+ &nbsp;&nbsp;&nbsp;</a>
+					<a id="panDown" onclick='chartAct(event)'>&nbsp;&nbsp;&nbsp; >> &nbsp;&nbsp;&nbsp;</a>
+				</div>
 			</div>
-			<div class="vPlotCtrl">
-				<a id="panUp" onclick='chartAct(event)'> &nbsp;&nbsp;&nbsp;<< &nbsp;&nbsp;&nbsp;</a>
-				<a id="yZoomOut" onclick='chartAct(event)'> &nbsp;&nbsp;&nbsp;- &nbsp;&nbsp;&nbsp;</a>
-				<a id="yZoomIn" onclick='chartAct(event)'> &nbsp;&nbsp;&nbsp;+ &nbsp;&nbsp;&nbsp;</a>
-				<a id="panDown" onclick='chartAct(event)'>&nbsp;&nbsp;&nbsp; >> &nbsp;&nbsp;&nbsp;</a>
-			</div>
-		</div>
-	</article>
-</body>
+		</article>
+	</body>
 </html>

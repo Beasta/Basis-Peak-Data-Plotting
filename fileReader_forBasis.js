@@ -6,27 +6,26 @@ window.onload = function() {
     biometrics.average = {};
 
 
-        var onSuccess=function(){ //
-            // drawChart(parseForGoogle(document.biometrics));
-            // chartAct();
-            draw =chartAct(chartState);
-        };
+    var onSuccess=function(){ 
+        draw =chartAct(chartState);
+    };
 
-        function average(key){                  /*helper function to compute average values*/
-            var count = 0;
-            var sum = biometrics.data.reduce(function(prev, curr){
-                if(curr[key]){
-                    count++;
-                    return prev + curr[key];
-                }else{return prev;}
-            },0);
-            return sum/count;
-        }
+    function average(key){                  /*helper function to compute average values, key is a string describing which biometric ie "heart-rate"*/
+        var count = 0;
+        var sum = biometrics.data.reduce(function(prev, curr){
+            if(curr[key]){
+                count++;
+                return prev + curr[key];
+            }else{
+                return prev;
+            }
+        },0);
+        
+        return sum/count;
+    }
 
     function parseForGoogle(inputObject){
         var outputArray=[];
-
-        
 
         outputArray=inputObject.data
             .map(function(minuteDataPoint){
@@ -39,18 +38,11 @@ window.onload = function() {
             });
 
         outputArray.unshift(inputObject.header);
-        // outputArray=inputObject.header // map header data to the top of the output Array
-        //     .map(function(headerDataString){
-        //         return headerDataString;
-        //     });
 
         return outputArray;
     }
 
-
-
     function parseBiometricCSV(stream){ //parse the datafile into an array.
-
 
         var headerChars = stream.search(/\n/);  /*single header line*/
 
@@ -117,16 +109,7 @@ window.onload = function() {
     }
         
     function drawChart(inputArrayStructuredForGoogle) {
-        var data = google.visualization.arrayToDataTable(inputArrayStructuredForGoogle);
-        var options = {
-          title: 'Fuzzy Nuts',
-          curveType: 'function',
-          legend: { position: 'bottom' }
-        };
-        var chart = new google.visualization.LineChart(document.getElementById('curve_chart'));
-        chart.draw(data, options);
-        //this is a comment for testing branching in git
-        //anther testing of branch
+
     }
 
       
