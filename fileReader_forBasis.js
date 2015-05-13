@@ -7,8 +7,9 @@ window.onload = function() {
 
 
         var onSuccess=function(){ //
-            drawChart(parseForGoogle(document.biometrics));
+            // drawChart(parseForGoogle(document.biometrics));
             // chartAct();
+            draw =chartAct(chartState);
         };
 
         function average(key){                  /*helper function to compute average values*/
@@ -49,8 +50,7 @@ window.onload = function() {
 
 
     function parseBiometricCSV(stream){ //parse the datafile into an array.
-        console.log(typeof stream);
-         //console.log(stream);
+
 
         var headerChars = stream.search(/\n/);  /*single header line*/
 
@@ -63,11 +63,15 @@ window.onload = function() {
                     var lineArr = line.split(',');
 
                         for (var i = 0; i < lineArr.length; i++) {
-                            if(biometrics.header[i]!=='date'){
+                            if(biometrics.header[i]!=='date' && lineArr[i] !== ""){
                                 dataPoint[biometrics.header[i]] = lineArr[i]/1;
-                            }else{dataPoint[biometrics.header[i]] = Date.parse(lineArr[i]);
+                            }else if(lineArr[i]===""){
+                                dataPoint[biometrics.header[i]] = null;
+                            }else {
+                                dataPoint[biometrics.header[i]] = Date.parse(lineArr[i]);
                             }
                         }
+                        
 
                     return dataPoint;
                 });
