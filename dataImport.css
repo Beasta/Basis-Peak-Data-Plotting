@@ -1,6 +1,6 @@
 .vPlotCtrl {
 	position: absolute;
-	top: 980;
+	top: 340;
 	left: 875px;
 	text-align: center;
 	transform: rotate(90deg);
@@ -12,7 +12,7 @@
 >>>>>>> a05e660c9d4a04aedad44f94d40364f10e54d612*/
 .hPlotCtrl {
 	position: absolute;
-	top:665px;
+	top:25px;
 	left:400px;
 	color: blue;
 }
@@ -25,15 +25,9 @@ a {
 	cursor: pointer;
 }
 
-#curveChart {
-	width: 900px; 
-	height: 500px;
-}
-
-
 #canvas {
 	position:absolute;
-	top:700px;
+	top:60px;
 	left:150px;
 	width: 800px;
 	height:600px;
