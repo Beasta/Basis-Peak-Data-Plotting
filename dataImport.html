@@ -10,6 +10,7 @@
 		<script src="jquery-1.11.2.js"></script>		
 		<script type="text/javascript" src="fileReader_forBasis.js"></script>
 		<script src="drawWithCanvas.js"></script>
+		<script src='getData.js'></script>
 	
 	</head>
 
@@ -23,20 +24,22 @@
 
 		<article>
 			<div id="canvasChart"></div>
-			<canvas id="canvas" >Your browswer does not support HTML5 Canvas.</canvas>
+			<canvas id="canvas" width='800px' height='600px'>Your browswer does not support HTML5 Canvas.</canvas>
 			<div>
 				<div class="hPlotCtrl">
-					<a id="panLeft" onclick='chartAct(event)'>&nbsp;&nbsp;&nbsp;<< &nbsp;&nbsp;&nbsp;</a>
-					<a id="xZoomOut" onclick='chartAct(event)'> &nbsp;&nbsp;&nbsp;- &nbsp;&nbsp;&nbsp;</a>
-					<a id="xZoomIn" onclick='chartAct(event)'> &nbsp;&nbsp;&nbsp;+ &nbsp;&nbsp;&nbsp;</a>
-					<a id="panRight" onclick='chartAct(event)'>&nbsp;&nbsp;&nbsp; >> &nbsp;&nbsp;&nbsp;</a>
-					<a id="draw" onclick="chartAct(event)"> &nbsp;&nbsp;&nbsp;Display! &nbsp;&nbsp;&nbsp;</a>
+					<a id="panLeft" onclick='chart.panLeft()'>&nbsp;&nbsp;&nbsp;<< &nbsp;&nbsp;&nbsp;</a>
+					<a id="xZoomOut" onclick='chart.xZoomOut()'> &nbsp;&nbsp;&nbsp;- &nbsp;&nbsp;&nbsp;</a>
+					<a id="xZoomIn" onclick='chart.xZoomIn()'> &nbsp;&nbsp;&nbsp;+ &nbsp;&nbsp;&nbsp;</a>
+					<a id="panRight" onclick='chart.panRight()'>&nbsp;&nbsp;&nbsp; >> &nbsp;&nbsp;&nbsp;</a>
+					<!-- <a id="draw" onclick="chart.draw()"> &nbsp;&nbsp;&nbsp;Display &nbsp;&nbsp;&nbsp;</a> -->
+
+
 				</div>
 				<div class="vPlotCtrl">
-					<a id="panUp" onclick='chartAct(event)'> &nbsp;&nbsp;&nbsp;<< &nbsp;&nbsp;&nbsp;</a>
-					<a id="yZoomOut" onclick='chartAct(event)'> &nbsp;&nbsp;&nbsp;- &nbsp;&nbsp;&nbsp;</a>
-					<a id="yZoomIn" onclick='chartAct(event)'> &nbsp;&nbsp;&nbsp;+ &nbsp;&nbsp;&nbsp;</a>
-					<a id="panDown" onclick='chartAct(event)'>&nbsp;&nbsp;&nbsp; >> &nbsp;&nbsp;&nbsp;</a>
+					<a id="panUp" onclick='chart.panUp()'> &nbsp;&nbsp;&nbsp;<< &nbsp;&nbsp;&nbsp;</a>
+					<a id="yZoomOut" onclick='chart.yZoomOut()'> &nbsp;&nbsp;&nbsp;- &nbsp;&nbsp;&nbsp;</a>
+					<a id="yZoomIn" onclick='chart.yZoomIn()'> &nbsp;&nbsp;&nbsp;+ &nbsp;&nbsp;&nbsp;</a>
+					<a id="panDown" onclick='chart.panDown()'>&nbsp;&nbsp;&nbsp; >> &nbsp;&nbsp;&nbsp;</a>
 				</div>
 			</div>
 		</article>

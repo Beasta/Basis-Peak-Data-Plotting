@@ -1,4 +1,3 @@
-
 window.onload = function() {
     var biometrics = {};
     document.biometrics = biometrics;
@@ -6,8 +5,9 @@ window.onload = function() {
     biometrics.average = {};
 
 
-    var onSuccess=function(){ 
-        draw =chartAct(chartState);
+    var onSuccess=function(){
+        chart = createChart();
+        chart.draw();
     };
 
     function average(key){                  /*helper function to compute average values, key is a string describing which biometric ie "heart-rate"*/
@@ -112,6 +112,5 @@ window.onload = function() {
 
     }
 
-      
     
 };

@@ -1,4 +1,4 @@
-function dataRequest(startTime, endTime, numPts, k){/*times are in milliseconds and are necessary, numPts is optional*/
+function dataRequest(startTime, endTime, k, numPts){/*times are in milliseconds and are necessary, numPts is optional*/
 	var startIndex = 0, endIndex=document.biometrics.data.length-2;
 	/* check to see that data exists for requested times, if not go to the start/end of the dataset*/
 
@@ -52,7 +52,7 @@ function dataRequest(startTime, endTime, numPts, k){/*times are in milliseconds 
 								(Math.floor( delta*(i+1) + startIndex ))
 								).reduce(meanMinMax, {});
 			}
- 
+
 		return results;
 
 	}else{
