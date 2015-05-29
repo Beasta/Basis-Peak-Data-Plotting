@@ -1,46 +1,25 @@
 window.onload = function() {
-    var biometrics = {};
+    var biometrics = {},
+        canvas = document.getElementById('canvas');
     document.biometrics = biometrics;
     document.biometrics.data = [];
     biometrics.average = {};
 
+    canvas.addEventListener('drop', function(event){
+        event.stopPropagation();
+        event.preventDefault();
+        importFile(event.dataTransfer.files);
+    });
+
+    window.addEventListener('dragover', function(event){
+        event.stopPropagation();
+        event.preventDefault();
+    });
 
     var onSuccess=function(){
         chart = createChart();
         chart.draw();
     };
-
-    function average(key){                  /*helper function to compute average values, key is a string describing which biometric ie "heart-rate"*/
-        var count = 0;
-        var sum = biometrics.data.reduce(function(prev, curr){
-            if(curr[key]){
-                count++;
-                return prev + curr[key];
-            }else{
-                return prev;
-            }
-        },0);
-        
-        return sum/count;
-    }
-
-    function parseForGoogle(inputObject){
-        var outputArray=[];
-
-        outputArray=inputObject.data
-            .map(function(minuteDataPoint){
-                return [minuteDataPoint.date,
-                        minuteDataPoint.calories,
-                        minuteDataPoint.gsr,
-                        minuteDataPoint["heart-rate"],
-                        minuteDataPoint["skin-temp"],
-                        minuteDataPoint.steps];
-            });
-
-        outputArray.unshift(inputObject.header);
-
-        return outputArray;
-    }
 
     function parseBiometricCSV(stream){ //parse the datafile into an array.
 
@@ -69,14 +48,20 @@ window.onload = function() {
                 });
     }
 
+
     //setup file loader
     //Check File API support
     if (window.File && window.FileList && window.FileReader) {
-        var filesInput = document.getElementById("files");
 
-        filesInput.addEventListener("change", function(event) {
+        $('#files').change(function(event){
+            importFile(event.target.files);
+        });
 
-            var files = event.target.files; //FileList object
+    }else{
+        console.log("Your browser does not support File API");
+    }
+    function importFile(files) {
+            // var files = event.target.files; //FileList object
             var output = document.getElementById("result");
             for (var i = 0; i < files.length; i++) {
                 var file = files[i];
@@ -102,15 +87,8 @@ window.onload = function() {
                 picReader.readAsText(file);
             }
 
-        });
-    }
-    else {
-        console.log("Your browser does not support File API");
-    }
-        
-    function drawChart(inputArrayStructuredForGoogle) {
-
     }
 
+  
     
 };

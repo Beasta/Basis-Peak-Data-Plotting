@@ -17,7 +17,7 @@ function createChart(){
 			this.ctx.clearRect(0,0,this.canvas.width, this.canvas.height);
 		},
 		draw:function(){
-			console.log(this.state);
+			// console.log(this.state);
 
 			this.chartData = dataRequest(this.state.xLow,this.state.xHigh,'skin-temp',1000);
 			this.canvas = document.getElementById('canvas');
