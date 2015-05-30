@@ -6,6 +6,7 @@ window.onload = function() {
     biometrics.average = {};
 
     canvas.addEventListener('drop', function(event){
+        $('.canvasShell').replaceWith('<div class="canvasShell"></div>');
         event.stopPropagation();
         event.preventDefault();
         importFile(event.dataTransfer.files);
@@ -15,9 +16,10 @@ window.onload = function() {
         event.stopPropagation();
         event.preventDefault();
     });
-
+    
+    
     var onSuccess=function(){
-        chart = createChart();
+        var chart = createChart();
         chart.draw();
     };
 
@@ -63,6 +65,9 @@ window.onload = function() {
     function importFile(files) {
             // var files = event.target.files; //FileList object
             var output = document.getElementById("result");
+
+            $('')
+
             for (var i = 0; i < files.length; i++) {
                 var file = files[i];
 
