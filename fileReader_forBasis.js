@@ -66,8 +66,6 @@ window.onload = function() {
             // var files = event.target.files; //FileList object
             var output = document.getElementById("result");
 
-            $('')
-
             for (var i = 0; i < files.length; i++) {
                 var file = files[i];
 
