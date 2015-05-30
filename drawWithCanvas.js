@@ -1,85 +1,83 @@
+function createChart(){
+	var chart = {
 
-var chartAct = function(event){
+		state:{
+				xLow:document.biometrics.data[0].date,
+				xHigh:document.biometrics.data[document.biometrics.data.length-2].date,
+				yLow:	dataRequest(document.biometrics.data[0].date,
+						document.biometrics.data[document.biometrics.data.length-2].date,
+						document.biometrics.header[4],1)[0][document.biometrics.header[4] + '_min'],
+				yHigh:	dataRequest(document.biometrics.data[0].date,
+						document.biometrics.data[document.biometrics.data.length-2].date,
+						document.biometrics.header[4],1)[0][document.biometrics.header[4] + '_max'],
+				xPts:43200000,
+				yPts:5
+		},
+		clear:function(){
+			this.ctx.clearRect(0,0,this.canvas.width, this.canvas.height);
+		},
+		draw:function(){
+			// console.log(this.state);
 
-	console.log(event.srcElement.id);
-	
-	var chartState = {
-			xLow:0,
-			xHigh:0,
-			yLow:0,
-			yHigh:0,
-			xPts:100,
-			ypts:100
-		};
+			this.chartData = dataRequest(this.state.xLow,this.state.xHigh,'skin-temp',1000);
+			this.canvas = document.getElementById('canvas');
+			this.ctx = canvas.getContext('2d');
 
+			this.clear();
 
-	var chartCanvas = document.getElementById("canvas");
-	var context = chartCanvas.getContext("2d");
-	context.strokeStyle = "blue";
-	context.strokeRect(0,0,chartCanvas.width, chartCanvas.height);
+			this.ctx.strokeStyle = 'black';
+			this.ctx.lineWidth = 1;
 
+			for (var i = 0; i < this.chartData.length; i++){
+					this.ctx.strokeStyle = 'black';
+					this.ctx.lineWidth = 1;
+					this.ctx.strokeRect(i/this.chartData.length * this.canvas.width,
+						this.chartData[i]['skin-temp'],1.5,1.5);
+				}
+			},
 
-
-	if(event.srcElement.id === 'draw'){
-		clear();
-		draw(event);
-	}
-	function clear(){
-		context.clearRect(0,0,chartCanvas.width, chartCanvas.height);
-	}
-
-	function draw(event){
-			if(event.srcElement.id==='panLeft'){panLeft();}
-			var chartCanvas = document.getElementById("canvas");
-			var context = chartCanvas.getContext("2d");
-			context.strokeStyle = "blue";
-			context.strokeRect(0,0,chartCanvas.width, chartCanvas.height);
-	}
-
-	var startTime = document.biometrics.data[0].date;
-	var endTime = document.biometrics.data[document.biometrics.data.length-2].date;
-
-	for (var i = 0; i < document.biometrics.data.length; i++) {
-		if(document.biometrics.data[i]['skin-temp']){
-			context.strokeStyle = 'black';
-			context.lineWidth = 1;
-			context.strokeRect((document.biometrics.data[i].date-startTime)/(endTime-startTime) * chartCanvas.width,
-				document.biometrics.data[i]['skin-temp'],1,1);
-		}
-	}
-
-
-	function panLeft(){
-		chartState.xLow -= Math.floor(chartState.xPts/2);
-		chartState.xHigh -= Math.floor(chartState.xPts/2);
-		console.log(chartState);
-		chartAct(chartState);
-	}
-	function panRight(){
-		chartState.xLow += Math.floor(chartState.xpts/2);
-		chartState.xHigh += Math.floor(chartState.xpts/2);
-		console.log(chartState);
-	}
-	function panUp(){
-		
-	}
-	function panDown(){
-		
-	}
-	function xZoonOut(){
-
-	}
-	function yZoomOut(){
-
-	}
-	function yZoomIn(){
-
-	}
-	function xZoomIn(){
-
-	}
-
-
-};
+		panLeft:function(){
+			this.state.xLow -= Math.floor(this.state.xPts/2);
+			this.state.xHigh -= Math.floor(this.state.xPts/2);
+			this.draw();
+		},
+		panRight:function(){
+			this.state.xLow += Math.floor(this.state.xPts/2);
+			this.state.xHigh += Math.floor(this.state.xPts/2);
+			this.draw();
+		},
+		panUp:function(){
+			this.state.yLow += Math.floor(this.state.yPts/2);
+			this.state.yHigh += Math.floor(this.state.yPts/2);
+			this.draw();
+		},
+		panDown:function(){
+			this.state.yLow -= Math.floor(this.state.yPts/2);
+			this.state.yHigh -= Math.floor(this.state.yPts/2);
+			this.draw();
+		},
+		xZoomOut:function(){
+			this.state.xLow -= Math.floor(this.state.xPts/2);
+			this.state.xHigh += Math.floor(this.state.xPts/2);
+			this.draw();
+		},
+		yZoomOut:function(){
+			this.state.yLow -= Math.floor(this.state.yPts/2);
+			this.state.yHigh += Math.floor(this.state.yPts/2);
+			this.draw();
+		},
+		yZoomIn:function(){
+			this.state.yLow += Math.floor(this.state.yPts/2);
+			this.state.yHigh -= Math.floor(this.state.yPts/2);
+			this.draw();
+		},
+		xZoomIn:function(){
+			this.state.xLow += Math.floor(this.state.xPts/2);
+			this.state.xHigh -= Math.floor(this.state.xPts/2);
+			this.draw();
+		},
+	};
+	return chart;
+}
 
 
