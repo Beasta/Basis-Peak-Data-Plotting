@@ -4,6 +4,7 @@ window.onload = function() {
  * initialize biometrics object to hold data
  *
  */
+
     var biometrics = {};
     document.biometrics = biometrics;
     document.biometrics.data = [];
@@ -34,6 +35,10 @@ window.onload = function() {
             window.chart.initialAnimation(true);
             playAudio();
     });
+
+    document.getElementById('canvas1').addEventListener('mousemove',function(event){
+        chart.mouse(event);
+    })
 
 /*
  *
@@ -90,7 +95,6 @@ window.onload = function() {
     }
     function importFile(files) {
 
-            console.log(window.chart.ctx);
             window.chart.clear();
             window.chart.ctx.strokeStyle = 'rgb(204, 42, 32)';
             window.chart.ctx.font = '40px sans-serif';
@@ -108,12 +112,10 @@ window.onload = function() {
 
                 var picReader = new FileReader();
                 picReader.addEventListener("load", function(event) {
-                    console.log("parsing");
+                    // console.log("parsing");
 
                     parseBiometricCSV(event.target.result);
                     
-                    console.log("parsed");
-
                    
                     onSuccess();
                     
@@ -134,6 +136,24 @@ function createChart(o){
 
     o.state =null;
 
+    o.mouse = function(event){
+        o.mouseCanvas = document.getElementById('mouseCanvas');
+        o.mouseCtx = o.mouseCanvas.getContext('2d');
+        o.mouseCtx.width = window.innerWidth;
+        o.mouseCtx.height = window.innerHeight;
+        // console.log(event.screenX);
+        o.mouseCtx.clearRect(0,0,o.mouseCtx.width,o.mouseCtx.height);
+        // o.mouseCtx.fillText('data',event.screenX,event.screenY);
+        // console.log(event.screenX,' ',event.screenY);
+        o.mouseCtx.beginPath();
+        o.mouseCtx.lineWidth = 1;
+        o.mouseCtx.moveTo(event.screenX-10,0);
+        o.mouseCtx.lineTo(event.screenX-10,o.mouseCtx.height);
+        o.mouseCtx.stroke();
+        o.mouseCtx.closePath();
+        o.mouseCtx.fillText(o.chartData['skin-temp'][
+            Math.floor(event.screenX/window.innerWidth*o.chartData['skin-temp'].length)]['skin-temp'],event.screenX,40);
+    };
     o.setState=function(){
         o.state ={
             xLow:document.biometrics.data[0].date,
@@ -178,7 +198,7 @@ function createChart(o){
             for(var i = 1; i<document.biometrics.header.length; i++){
                 var trace = document.biometrics.header[i];
                 // console.log(trace);
-                o.chartData[trace] = dataRequest(o.state.xLow,o.state.xHigh,trace,1000);
+                o.chartData[trace] = dataRequest(o.state.xLow,o.state.xHigh,trace,1400);
             }
         }
 
@@ -190,6 +210,14 @@ function createChart(o){
             $('.shell').append('<canvas id="canvas" width='+$('.shell').width()+' height='+$('.shell').height()+
             '>Your browser does not support canvas. </canvas>');
         }
+        if($('#mouseCanvas').length){
+            $('#mouseCanvas').replaceWith('<canvas id="mouseCanvas" width='+$('.shell').width()+' height='+$('.shell').height()+
+                '>Your browser does not support canvas. </canvas>');
+        }else{
+            $('.shell').append('<canvas id="mouseCanvas" width='+$('.shell').width()+' height='+$('.shell').height()+
+            '>Your browser does not support canvas. </canvas>');
+        }
+
 
         o.canvas = document.getElementById('canvas');
         o.ctx = o.canvas.getContext('2d');
@@ -215,7 +243,7 @@ function createChart(o){
 
             }
         }
-        if(o.animateDone){
+        if(o.animateDone && document.biometrics.header.length){
             for (var j = 1; j < document.biometrics.header.length; j++) {
 
                 plotVar(document.biometrics.header[j],color[document.biometrics.header[j]]);
@@ -234,7 +262,7 @@ function createChart(o){
         }else if(o.animateDone){
             message();
         }
-        var y,gradient,windowWidth = $('.shell').width(), start, end,
+        var y,gradient,windowWidth = window.innerWidth, start, end,
 
             heightY = Math.floor($('.shell').height()/2);
 

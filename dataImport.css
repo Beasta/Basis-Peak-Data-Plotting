@@ -36,12 +36,18 @@ button {
 }
 
 .canvasText{
-	position: inherit;
+	position: relative;
 	text-align: center;
 	vertical-align: middle;
+	z-index: -1;
 }
 
-
+#mouseCanvas {
+	position:relative;
+}
+#canvas {
+	position: absolute;
+}
 
 .shell {
 	width:100%;
